@@ -13,10 +13,9 @@ openssl
 = Details =
 
 下载并安装VWPlayer 3.0
-
+http://downloads.vmware.com/d/info/desktop_downloads/vmware_player/3_0
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
   * Headings, paragraphs, and lists
   * Automatic links to other wiki pages
-
