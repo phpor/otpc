@@ -4,11 +4,13 @@
 = Introduction =
 如果你已经有Linux的环境，请忽略下面有些步骤。在这里将介绍从Windows XP
 下开始利用免费软件建立测试环境的方法。
+<p>
 利用到的免费软件
  VWPlayer 3.0
  CentOS 5.0 (考虑到兼容问题，这次故意没有用最新版本)
  gcc
  openssl
+</p>
 
 = Details =
 下载并安装VWPlayer 3.0
@@ -19,9 +21,24 @@
 
 运行VWPlayer并启动CentOS
 
+运行以下命令安装gcc到CentOS
+<p>
+# yum install gcc gcc-c++ autoconf automake
+</p>
+
+下载安装openssl到CentOS
+<p>
+# cd openssl-*.*.*
+# ./config shared
+# make
+# make test
+# make install
+</p>
+
 下载otpd-3.1.0.tar.gz到CentOS
 例: wget http://code.google.com/p/otpc/downloads/detail?name=otpd-3.1.0.tar.gz&can=2&q=
 
+以下命令安装现有的OTPD系统
 <pre>
 gtar zxvf otpd-3.1.0.tar.gz
 cd otpd-3.1.0/
