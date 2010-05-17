@@ -53,3 +53,45 @@ chmod 700 /etc/otpstate
 mkdir /var/run/otpd
 touch /var/run/otpd/socket
 </p>
+
+利用适当的OATH对应的Token客户端
+<p>
+http://code.google.com/p/oathtoken/
+</p>
+* 运行于其它手机上的，OATH对应的Token都可以。没有找到合适的Windows上可以利用，如果你知道，请给我们联系。
+
+设置OTP服务器
+把Token客户端的key共享给OTP服务器
+<p>
+cat >> /etc/otppasswd
+Test2:hotp-d6:80d4d335194ae378fa901767596969bc213e6535
+</p>
+在这里，Test2是用户名，你可以根据需要做修改
+hotp-d6表示算法是htop,会生成6位的OTP
+后面部分是Token客户端的key(每个客户端都会有一个唯一的秘密的key,由于这个系统和客户端程序没有有效的交换key的办法，为了测试这里只能直接拷贝)
+
+在Token客户端生成两次OTP，用以下命令来同步客户端和OTP服务器
+<p>
+resynctool -1 152979 -2 758041 -u Test2 -k 80d4d335194ae378fa901767596969bc213e6535 > /etc/otpstate/foo
+</p>
+
+为了测试动态口令，首先启动OTP服务器
+<p>
+# otpd -D
+otpd: otpd 3.1.0 starting
+otpd: accept_thread: tid=3086179248
+</p>
+
+在Token客户端生成新的动态口令，用以下命令来验证它是否有效
+<p>
+# otpauth -u Test2 -p 995880 -s /var/run/otpd/socket
+0 (ok)
+</p>
+
+如果出现 0 (ok)的话，说明动态口令通过了验证。你也可以验证OTP服务器
+是非拒绝错误的，或者已经使用过的动态口令
+<p>
+# otpauth -u Test2 -p 995880 -s /var/run/otpd/socket 
+otpauth: connect(/var/run/otpd/socket): Connection refused
+-1 (invalid return code)
+</p>
