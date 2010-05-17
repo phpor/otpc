@@ -18,3 +18,21 @@
  http://www.vmware.com/appliances/directory/820
 
 运行VWPlayer并启动CentOS
+
+下载otpd-3.1.0.tar.gz到CentOS
+例: wget http://code.google.com/p/otpc/downloads/detail?name=otpd-3.1.0.tar.gz&can=2&q=
+
+<pre>
+gtar zxvf otpd-3.1.0.tar.gz
+cd otpd-3.1.0/
+./configure
+make
+make install
+
+mkdir /etc/otpstate
+touch /etc/otppasswd
+chmod 600 /etc/otppasswd
+chmod 700 /etc/otpstate
+mkdir /var/run/otpd
+touch /var/run/otpd/socket
+</pre>
