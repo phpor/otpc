@@ -87,6 +87,7 @@ otpd: accept_thread: tid=3086179248
 # otpauth -u Test2 -p 995880 -s /var/run/otpd/socket
 0 (ok)
 </pre>
+* 由于在VMware上，你只能打开一个窗口，这里需要sshd或者telnet来访问CentOS。写这个测试经过的时候是使用了Tera Term.
 
 如果出现 0 (ok)的话，说明动态口令通过了验证。你也可以验证OTP服务器
 是非拒绝错误的，或者已经使用过的动态口令
