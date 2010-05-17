@@ -1,15 +1,22 @@
 #labels Phase-Deploy
 怎样运行，测试otpc系统
 
-
 = Introduction =
-
-Add your content here.
-
+如果你已经有Linux的环境，请忽略下面有些步骤。在这里将介绍从Windows XP
+下开始利用免费软件建立测试环境的方法。
+利用到的免费软件
+VWPlayer 3.0
+CentOS 5.0 (考虑到兼容问题，这次故意没有用最新版本)
+gcc
+openssl
 
 = Details =
+
+下载并安装VWPlayer 3.0
+
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
   * Headings, paragraphs, and lists
   * Automatic links to other wiki pages
+
