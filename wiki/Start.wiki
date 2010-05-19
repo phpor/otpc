@@ -97,7 +97,7 @@ otpauth: connect(/var/run/otpd/socket): Connection refused
 -1 (invalid return code)
 </pre>
 
-每个Token的状态已文件方式保存在服务器上。
+每个Token的状态以文件方式保存在服务器上。
 <pre>
 # ls /etc/otpstate
 foo  Test2  Test3  Test4
@@ -106,6 +106,3 @@ foo  Test2  Test3  Test4
 </pre>
 在/etc/otpstate文件夹里，状态文件以Token名作为文件名，在文件里面
 0000000000000009 表示现在Token的使用次数。
-
-If you look at the contents of /etc/otpstate/foo you should see something like:
-5:foo:0000000000000003:::0:0:0:
