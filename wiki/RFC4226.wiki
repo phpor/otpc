@@ -1,7 +1,7 @@
 RFC4226的概要
 
 = Introduction =
-RFC4226记述的是HOTP，一个基于HMAC的动态口令的算法。由于本系统支持HOTP，在这里将介绍一下RFC4226的概要，以便加深对HOTP以及动态口令的理解。对于一些细节请参照<a href="http://www.ietf.org/rfc/rfc4226.txt">RFC 4226原文</a>原文。
+RFC4226记述的是HOTP，一个基于HMAC的动态口令的算法。由于本系统支持HOTP，在这里将介绍一下RFC4226的概要，以便加深对HOTP以及动态口令的理解。对于一些细节请参照<a href="http://www.ietf.org/rfc/rfc4226.txt">RFC 4226原文</a>。
 
 = Details =
 
