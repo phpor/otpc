@@ -1,0 +1,22 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+<div class="sec long" id="codearea">
+<pre class="code">
+Network Working Group                                         D. M'Raihi
+Request for Comments: 4226                                      VeriSign
+Category: Informational                                       M. Bellare
+                                                                    UCSD
+                                                            F. Hoornaert
+                                                                   Vasco
+                                                             D. Naccache
+                                                                 Gemplus
+                                                                O. Ranen
+                                                                 Aladdin
+                                                           December 2005
+</pre>
