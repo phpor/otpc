@@ -5,7 +5,36 @@ RFC4226记述的是HOTP，一个基于HMAC的动态口令的算法。由于本�
 
 = Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+4.算法的必要条件
+   RFC4226的第四节，介绍了HOTP的算法设计要满足的主要的必要条件。特别强调了终端用户的使用方便和在可能提供最低限的用户界面的低端硬件上的实现。特别是需要具有把这个算法和SIM,Java卡结合起来的能力。
+   R1 - 这个算法必须是连续性的，或者是基于事件的：一个目的是把HOTP算法嵌入到Java智能卡，USB dongles和GSM SIM卡。
+
+   R2 - The algorithm SHOULD be economical to implement in hardware by
+   minimizing requirements on battery, number of buttons, computational
+   horsepower, and size of LCD display.
+
+   R3 - The algorithm MUST work with tokens that do not support any
+   numeric input, but MAY also be used with more sophisticated devices
+   such as secure PIN-pads.
+
+   R4 - The value displayed on the token MUST be easily read and entered
+   by the user: This requires the HOTP value to be of reasonable length.
+
+
+
+M'Raihi, et al.              Informational                      [Page 4]
+
+RFC 4226                     HOTP Algorithm                December 2005
+
+
+   The HOTP value must be at least a 6-digit value.  It is also
+   desirable that the HOTP value be 'numeric only' so that it can be
+   easily entered on restricted devices such as phones.
+
+   R5 - There MUST be user-friendly mechanisms available to
+   resynchronize the counter.  Section 7.4 and Appendix E.4 details the
+   resynchronization mechanism proposed in this document
+
+   R6 - The algorithm MUST use a strong shared secret.  The length of
+   the shared secret MUST be at least 128 bits.  This document
+   RECOMMENDs a shared secret length of 160 bits.
