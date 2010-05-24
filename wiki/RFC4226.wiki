@@ -9,11 +9,9 @@ RFC4226记述的是HOTP，一个基于HMAC的动态口令的算法。由于本�
 4.算法的必要条件
    RFC4226的第四节，介绍了HOTP的算法设计要满足的主要的必要条件。特别强调了终端用户的使用方便和在可能提供最低限的用户界面的低端硬件上的实现。特别是需要具有把这个算法和SIM,Java卡结合起来的能力。
    R1 - 这个算法必须是连续性的，或者是基于事件的：一个目的是把HOTP算法嵌入到Java智能卡，USB dongles和GSM SIM卡。
+   R2 - 依靠最小化对电池，按钮数，计算能力和LCD界面尺寸的需要，这个算法应该能很经济的在硬件上实现。
 </pre>
 
-   R2 - The algorithm SHOULD be economical to implement in hardware by
-   minimizing requirements on battery, number of buttons, computational
-   horsepower, and size of LCD display.
 
    R3 - The algorithm MUST work with tokens that do not support any
    numeric input, but MAY also be used with more sophisticated devices
