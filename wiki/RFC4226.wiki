@@ -20,13 +20,16 @@ Java卡的能力是一个重要的前提。
    R5 - 必须具有用户友好的再同期计数器的机制。7.4节和附录E.4将详细介绍本资料建议的计数器
    再同期机制。
    R6 - 这个算法必须使用牢固的共享密码。共享密码必须至少128位。本资料推荐160的共享密码。
+
+5.2 算法的概述
+   HOTP算法是基于客户端和服务器端都知道下面两个值:
+    C:一个递增的值，就好比一个计数器一样
+     K:一个事先互相知道的值
+    每次进行密码验证的时候，双方都利用下面的算法来生成一个动态的值      
+       HOTP(K,C) = Truncate(HMAC-SHA-1(K,C))
+  
+    在这里HMAC-SHA-1指的是在<a href="http://www.ietf.org/rfc/rfc2104.txt">RFC2104</a>里定义的HASH算法。
+    Truncate代表一个削减函数，以便把一个20位的HMAC-SHA-1算法的结果变成一个便于用户输入的值。（比如
+6位，8位）
    
 </pre>
-
-   R5 - There MUST be user-friendly mechanisms available to
-   resynchronize the counter.  Section 7.4 and Appendix E.4 details the
-   resynchronization mechanism proposed in this document
-
-   R6 - The algorithm MUST use a strong shared secret.  The length of
-   the shared secret MUST be at least 128 bits.  This document
-   RECOMMENDs a shared secret length of 160 bits.
