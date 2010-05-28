@@ -28,8 +28,7 @@ Java卡的能力是一个重要的前提。
     每次进行密码验证的时候，双方都利用下面的算法来生成一个动态的值      
        HOTP(K,C) = Truncate(HMAC-SHA-1(K,C))
 </pre>  
-  在这里HMAC-SHA-1指的是在<a href="http://www.ietf.org/rfc/rfc2104.txt">RFC2104</a>里定义的HASH算法。
-  Truncate代表一个削减函数，以便把一个20位的HMAC-SHA-1算法的结果变成一个便于用户输入的值。
+  在这里HMAC-SHA-1指的是在<a href="http://www.ietf.org/rfc/rfc2104.txt">RFC2104</a>里定义的HASH算法。Truncate代表一个削减函数，以便把一个20位的HMAC-SHA-1算法的结果变成一个便于用户输入的值。
 （比如6位，8位）
 <pre>   
 </pre>
