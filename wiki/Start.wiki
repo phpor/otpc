@@ -58,7 +58,7 @@ touch /var/run/otpd/socket
 <pre>
 http://code.google.com/p/oathtoken/
 </pre>
-* 运行于其它手机上的，OATH对应的Token都可以。没有找到合适的Windows上可以利用，如果你知道，请给我们联系。
+* 运行于其它手机上的，OATH对应的Token都可以。
 
 设置OTP服务器
 把Token客户端的key共享给OTP服务器
