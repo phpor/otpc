@@ -55,7 +55,7 @@ Java卡的能力是一个重要的前提。
 
 5.4.  计算6位HOTP的例子（Digit = 6）
    下面的例子介绍怎样从HMAC-SHA-1运算结果抽取动态的二进制代码。
-
+{{{
         //String[19]的低位4字节
         int offset   =  hmac_result[19] & 0xf ;
         //不使用最高位，利用 &0x7f
@@ -63,6 +63,7 @@ Java卡的能力是一个重要的前提。
            | (hmac_result[offset+1] & 0xff) << 16
            | (hmac_result[offset+2] & 0xff) <<  8
            | (hmac_result[offset+3] & 0xff) ;
+}}}
 
    HMAC-SHA-1运算的例子
 
