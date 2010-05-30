@@ -29,5 +29,86 @@ Java卡的能力是一个重要的前提。
        HOTP(K,C) = Truncate(HMAC-SHA-1(K,C))
 </pre>  
   在这里HMAC-SHA-1指的是在<a href="http://www.ietf.org/rfc/rfc2104.txt">RFC2104</a>里定义的HASH算法。Truncate代表一个削减函数，以便把一个20位的HMAC-SHA-1算法的结果变成一个便于用户输入的值。（比如6位，8位）
-<pre>   
+<pre>
+5.3 生成HOTP值
+   第1步：生成一个HMAC-SHA-1值,让HS = HMAC-SHA-1(K,C) //HS为20位的String
+   
+   第2步：生成一个4位的String(Dynamic Truncation,动态削减)
+   让 Sbits = DT(HS)  //DT运算,参考下面的定义，返回31-bit string
+
+   第3步：计算HOTP值
+   让 Snum  = StToNum(Sbits)   // 把S转化成一个0...2^{31}-1的数
+   Return D = Snum mod 10^Digit //  D是一个位于0...10^{Digit}-1的数 
+
+   削减函数Truncate执行第2步和第3步处理。
+
+   DT运算的定义
+     DT(String)  //String = String[0]...String[19],HMAC-SHA-1运算的结果
+     让 OffsetBits等于String[19]的低位4字节
+     Offset = StToNum(OffsetBits) // 0 <= OffSet <= 15
+     让 P = String[OffSet]...String[OffSet+3]
+     返回P的最后31字节
+
+
+   The reason for masking the most significant bit of P is to avoid
+   confusion about signed vs. unsigned modulo computations.  Different
+   processors perform these operations differently, and masking out the
+   signed bit removes all ambiguity.
+
+   Implementations MUST extract a 6-digit code at a minimum and possibly
+   7 and 8-digit code.  Depending on security requirements, Digit = 7 or
+   more SHOULD be considered in order to extract a longer HOTP value.
+
+   The following paragraph is an example of using this technique for
+   Digit = 6, i.e., that a 6-digit HOTP value is calculated from the
+   HMAC value.
+
+5.4.  Example of HOTP Computation for Digit = 6
+
+   The following code example describes the extraction of a dynamic
+   binary code given that hmac_result is a byte array with the HMAC-
+   SHA-1 result:
+
+        int offset   =  hmac_result[19] & 0xf ;
+        int bin_code = (hmac_result[offset]  & 0x7f) << 24
+           | (hmac_result[offset+1] & 0xff) << 16
+           | (hmac_result[offset+2] & 0xff) <<  8
+           | (hmac_result[offset+3] & 0xff) ;
+
+   SHA-1 HMAC Bytes (Example)
+
+   -------------------------------------------------------------
+   | Byte Number                                               |
+   -------------------------------------------------------------
+   |00|01|02|03|04|05|06|07|08|09|10|11|12|13|14|15|16|17|18|19|
+   -------------------------------------------------------------
+   | Byte Value                                                |
+   -------------------------------------------------------------
+   |1f|86|98|69|0e|02|ca|16|61|85|50|ef|7f|19|da|8e|94|5b|55|5a|
+   -------------------------------***********----------------++|
+
+
+
+
+M'Raihi, et al.              Informational                      [Page 7]
+
+RFC 4226                     HOTP Algorithm                December 2005
+
+
+   * The last byte (byte 19) has the hex value 0x5a.
+   * The value of the lower 4 bits is 0xa (the offset value).
+   * The offset value is byte 10 (0xa).
+   * The value of the 4 bytes starting at byte 10 is 0x50ef7f19,
+     which is the dynamic binary code DBC1.
+   * The MSB of DBC1 is 0x50 so DBC2 = DBC1 = 0x50ef7f19 .
+   * HOTP = DBC2 modulo 10^6 = 872921.
+
+   We treat the dynamic binary code as a 31-bit, unsigned, big-endian
+   integer; the first byte is masked with a 0x7f.
+
+   We then take this number modulo 1,000,000 (10^6) to generate the 6-
+   digit HOTP value 872921 decimal.
+
+
+   
 </pre>
