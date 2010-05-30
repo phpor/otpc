@@ -42,11 +42,14 @@ Java卡的能力是一个重要的前提。
 
    削减函数Truncate执行第2步和第3步处理。
 
+
    DT运算的定义
+{{{
      DT(String)  //String = String[0]...String[19],HMAC-SHA-1运算的结果
      让 OffsetBits等于String[19]的低位4字节
      Offset = StToNum(OffsetBits) // 0 <= OffSet <= 15
      让 P = String[OffSet]...String[OffSet+3]
+}}}
      返回P的最后31字节
      
    在这里不使用P的最高位字节的目的是为了避免singed,unsigned代来的计算问题。
