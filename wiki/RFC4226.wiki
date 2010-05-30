@@ -48,22 +48,12 @@ Java卡的能力是一个重要的前提。
      Offset = StToNum(OffsetBits) // 0 <= OffSet <= 15
      让 P = String[OffSet]...String[OffSet+3]
      返回P的最后31字节
+     
+   在这里不使用P的最高位字节的目的是为了避免singed,unsigned代来的计算问题。
+   不同的处理器对singed,unsigned的计算方式不一样，不使用最高位字节可以避免
+   这样的问题。
 
-
-   The reason for masking the most significant bit of P is to avoid
-   confusion about signed vs. unsigned modulo computations.  Different
-   processors perform these operations differently, and masking out the
-   signed bit removes all ambiguity.
-
-   Implementations MUST extract a 6-digit code at a minimum and possibly
-   7 and 8-digit code.  Depending on security requirements, Digit = 7 or
-   more SHOULD be considered in order to extract a longer HOTP value.
-
-   The following paragraph is an example of using this technique for
-   Digit = 6, i.e., that a 6-digit HOTP value is calculated from the
-   HMAC value.
-
-5.4.  Example of HOTP Computation for Digit = 6
+5.4.  计算6位HOTP的例子（Digit = 6）
 
    The following code example describes the extraction of a dynamic
    binary code given that hmac_result is a byte array with the HMAC-
