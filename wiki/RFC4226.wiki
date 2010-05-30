@@ -37,7 +37,7 @@ Java卡的能力是一个重要的前提。
    让 Sbits = DT(HS)  //DT运算,参考下面的定义，返回31-bit string
 
    第3步：计算HOTP值
-   让 Snum  = StToNum（Sbits)   // 把S转化成一个0...2^{31}-1的数
+   让 Snum  = StToNum(Sbits)   // 把S转化成一个0...2^{31}-1的数
    Return D = Snum mod 10^Digit //  D是一个位于0...10^{Digit}-1的数 
 
    削减函数Truncate执行第2步和第3步处理。
