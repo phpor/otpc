@@ -104,4 +104,25 @@ Java卡的能力是一个重要的前提。
    
    如果达到了最大的允许探试次数，服务器应该锁定账户并启动一个通知用户的手续。
 
+7.4.  计数器的再同步
+
+   虽然在一次成功的HOTP认证后才增加服务器计数器的值，在令牌上的计数器的值是只要用户请求
+   一个新的HOTP就会被增加。因此，服务器上的计数器和令牌上的计数器的值就可能不同步。
+
+   推荐在服务器上设置一个超前(look-ahead)变量s,让它来定义look-ahead window的大小。简单
+   的说，就是服务器能计算接下来的s个服务器端HOTP值，然后用它们来检测接受接受到的HOTP客户端。
+
+   在这种情况下，计数器的同步就仅仅是让服务器计算接下来的s个HOTP值并决定是否有一个一致的。
+   作为一个选择，系统可以要求用户送连续的几个HOTP值(比如2个, 3个)以用来再同步，因为猜测连续
+   的几个HOTP值比猜测单独的一个HOTP值要困难的多。
+
+   变量s设置的上限确保服务器不会一直在检测HOTP值(导致denial-of-service攻击)并且限制攻击者
+   可能的猜测范围。在确保不显著影响可用性的同时，s应当尽可能的小。
+   The upper bound set by the parameter s ensures the server does not go
+   on checking HOTP values forever (causing a denial-of-service attack)
+   and also restricts the space of possible solutions for an attacker
+   trying to manufacture HOTP values. s SHOULD be set as low as
+   possible, while still ensuring that usability is not impacted.
+
+
 </pre>
