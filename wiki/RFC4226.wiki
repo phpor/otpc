@@ -93,23 +93,15 @@ Java卡的能力是一个重要的前提。
 
 7.2.  HOTP值的验证
 
-   The HOTP client (hardware or software token) increments its counter
-   and then calculates the next HOTP value HOTP client.  If the value
-   received by the authentication server matches the value calculated by
-   the client, then the HOTP value is validated.  In this case, the
-   server increments the counter value by one.
+   HOTP客户端(硬软件令牌)递增计数器的值，然后计算下一个HOTP值。如果认证服务器得到的值和
+   客户端计算出来的值一样，那么HOTP值就被验证了。在这种情况下，服务器把计数器的值加1。
 
-   If the value received by the server does not match the value
-   calculated by the client, the server initiate the resynch protocol
-   (look-ahead window) before it requests another pass.
+   如果认证服务器得到的值和客户端计算出来的值不一样，服务器在开始寻求另一个途径之前启动再同步
+   的手续。(look-ahead window，即在接受一定范围内的超前的HOTP值，比如将计数器的值加1，
+   加2，加3后的值)
 
-   If the resynch fails, the server asks then for another
-   authentication pass of the protocol to take place, until the
-   maximum number of authorized attempts is reached.
-
-   If and when the maximum number of authorized attempts is reached, the
-   server SHOULD lock out the account and initiate a procedure to inform
-   the user.
-
+   如果再同步失败，服务器然后要求协议的另一个认证途径发生，直到达到最大的允许探试次数。
    
+   如果达到了最大的允许探试次数，服务器应该锁定账户并启动一个通知用户的手续。
+
 </pre>
