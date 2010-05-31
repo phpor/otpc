@@ -118,11 +118,5 @@ Java卡的能力是一个重要的前提。
 
    变量s设置的上限确保服务器不会一直在检测HOTP值(导致denial-of-service攻击)并且限制攻击者
    可能的猜测范围。在确保不显著影响可用性的同时，s应当尽可能的小。
-   The upper bound set by the parameter s ensures the server does not go
-   on checking HOTP values forever (causing a denial-of-service attack)
-   and also restricts the space of possible solutions for an attacker
-   trying to manufacture HOTP values. s SHOULD be set as low as
-   possible, while still ensuring that usability is not impacted.
-
 
 </pre>
