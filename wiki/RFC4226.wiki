@@ -89,5 +89,27 @@ Java卡的能力是一个重要的前提。
    * HOTP = DBC2 除以 10^6 的余 = 872921.
 
    这样用二进制代码135872921除以 1,000,000 (10^6) 的余就是一个6位的HOTP值。
+
+
+7.2.  HOTP值的验证
+
+   The HOTP client (hardware or software token) increments its counter
+   and then calculates the next HOTP value HOTP client.  If the value
+   received by the authentication server matches the value calculated by
+   the client, then the HOTP value is validated.  In this case, the
+   server increments the counter value by one.
+
+   If the value received by the server does not match the value
+   calculated by the client, the server initiate the resynch protocol
+   (look-ahead window) before it requests another pass.
+
+   If the resynch fails, the server asks then for another
+   authentication pass of the protocol to take place, until the
+   maximum number of authorized attempts is reached.
+
+   If and when the maximum number of authorized attempts is reached, the
+   server SHOULD lock out the account and initiate a procedure to inform
+   the user.
+
    
 </pre>
