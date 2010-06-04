@@ -119,15 +119,8 @@ Java卡的能力是一个重要的前提。
    变量s设置的上限确保服务器不会一直在检测HOTP值(导致denial-of-service攻击)并且限制攻击者
    可能的猜测范围。在确保不显著影响可用性的同时，s应当尽可能的小。
 7.5. 共有秘匙的管理
-   The operations dealing with the shared secrets used to generate and
-   verify OTP values must be performed securely, in order to mitigate
-   risks of any leakage of sensitive information.  We describe in this
-   section different modes of operations and techniques to perform these
-   different operations with respect to the state of the art in data
-   security.
-
-   We can consider two different avenues for generating and storing
-   (securely) shared secrets in the Validation system:
+   两个不同的生成和保存共有秘匙的办法:
+   
 
       * Deterministic Generation: secrets are derived from a master
         seed, both at provisioning and verification stages and generated
