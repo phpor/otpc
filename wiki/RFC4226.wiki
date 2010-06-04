@@ -24,7 +24,7 @@ Java卡的能力是一个重要的前提。
 5.2 算法的概述
    HOTP算法是基于客户端和服务器端都知道下面两个值:
     C:一个递增的值，就好比一个计数器一样
-     K:一个事先互相知道的值
+     K:一个共享的秘匙
     每次进行密码验证的时候，双方都利用下面的算法来生成一个动态的值      
        HOTP(K,C) = Truncate(HMAC-SHA-1(K,C))
 </pre>  
@@ -118,5 +118,128 @@ Java卡的能力是一个重要的前提。
 
    变量s设置的上限确保服务器不会一直在检测HOTP值(导致denial-of-service攻击)并且限制攻击者
    可能的猜测范围。在确保不显著影响可用性的同时，s应当尽可能的小。
+7.5. 共有秘匙的管理
+   The operations dealing with the shared secrets used to generate and
+   verify OTP values must be performed securely, in order to mitigate
+   risks of any leakage of sensitive information.  We describe in this
+   section different modes of operations and techniques to perform these
+   different operations with respect to the state of the art in data
+   security.
+
+   We can consider two different avenues for generating and storing
+   (securely) shared secrets in the Validation system:
+
+      * Deterministic Generation: secrets are derived from a master
+        seed, both at provisioning and verification stages and generated
+        on-the-fly whenever it is required.
+      * Random Generation: secrets are generated randomly at
+        provisioning stage and must be stored immediately and kept
+        secure during their life cycle.
+
+
+
+
+
+
+
+M'Raihi, et al.              Informational                     [Page 11]
+
+RFC 4226                     HOTP Algorithm                December 2005
+
+
+   Deterministic Generation
+   ------------------------
+
+   A possible strategy is to derive the shared secrets from a master
+   secret.  The master secret will be stored at the server only.  A
+   tamper-resistant device MUST be used to store the master key and
+   derive the shared secrets from the master key and some public
+   information.  The main benefit would be to avoid the exposure of the
+   shared secrets at any time and also avoid specific requirements on
+   storage, since the shared secrets could be generated on-demand when
+   needed at provisioning and validation time.
+
+   We distinguish two different cases:
+
+      - A single master key MK is used to derive the shared secrets;
+        each HOTP device has a different secret, K_i = SHA-1 (MK,i)
+        where i stands for a public piece of information that identifies
+        uniquely the HOTP device such as a serial number, a token ID,
+        etc.  Obviously, this is in the context of an application or
+        service -- different application or service providers will have
+        different secrets and settings.
+      - Several master keys MK_i are used and each HOTP device stores a
+        set of different derived secrets, {K_i,j = SHA-1(MK_i,j)} where
+        j stands for a public piece of information identifying the
+        device.  The idea would be to store ONLY the active master key
+        at the validation server, in the Hardware Security Module (HSM),
+        and keep in a safe place, using secret sharing methods such as
+        [Shamir] for instance.  In this case, if a master secret MK_i is
+        compromised, then it is possible to switch to another secret
+        without replacing all the devices.
+
+   The drawback in the deterministic case is that the exposure of the
+   master secret would obviously enable an attacker to rebuild any
+   shared secret based on correct public information.  The revocation of
+   all secrets would be required, or switching to a new set of secrets
+   in the case of multiple master keys.
+
+   On the other hand, the device used to store the master key(s) and
+   generate the shared secrets MUST be tamper resistant.  Furthermore,
+   the HSM will not be exposed outside the security perimeter of the
+   validation system, therefore reducing the risk of leakage.
+
+
+
+
+
+
+
+
+
+
+M'Raihi, et al.              Informational                     [Page 12]
+
+RFC 4226                     HOTP Algorithm                December 2005
+
+
+   Random Generation
+   -----------------
+
+   The shared secrets are randomly generated.  We RECOMMEND following
+   the recommendations in [RFC4086] and selecting a good and secure
+   random source for generating these secrets.  A (true) random
+   generator requires a naturally occurring source of randomness.
+   Practically, there are two possible avenues to consider for the
+   generation of the shared secrets:
+
+      * Hardware-based generators: they exploit the randomness that
+   occurs in physical phenomena.  A nice implementation can be based on
+   oscillators and built in such ways that active attacks are more
+   difficult to perform.
+
+      * Software-based generators: designing a good software random
+   generator is not an easy task.  A simple, but efficient,
+   implementation should be based on various sources and apply to the
+   sampled sequence a one-way function such as SHA-1.
+
+   We RECOMMEND selecting proven products, being hardware or software
+   generators, for the computation of shared secrets.
+
+   We also RECOMMEND storing the shared secrets securely, and more
+   specifically encrypting the shared secrets when stored using tamper-
+   resistant hardware encryption and exposing them only when required:
+   for example, the shared secret is decrypted when needed to verify an
+   HOTP value, and re-encrypted immediately to limit exposure in the RAM
+   for a short period of time.  The data store holding the shared
+   secrets MUST be in a secure area, to avoid as much as possible direct
+   attack on the validation system and secrets database.
+
+   Particularly, access to the shared secrets should be limited to
+   programs and processes required by the validation system only.  We
+   will not elaborate on the different security mechanisms to put in
+   place, but obviously, the protection of shared secrets is of the
+   uttermost importance.
+
 
 </pre>
