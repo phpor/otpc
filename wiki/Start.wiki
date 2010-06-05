@@ -56,7 +56,7 @@
 # touch /var/run/otpd/socket
 }}}
 
-利用适当的OATH对应的Token客户端
+利用适当的OATH对应的Token客户端,比如一个在iphone上的令牌口令软件：
 <pre>
 http://code.google.com/p/oathtoken/
 </pre>
