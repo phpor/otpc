@@ -66,15 +66,15 @@ http://code.google.com/p/oathtoken/
 把Token客户端的key共享给OTP服务器
 {{{
 # cat >> /etc/otppasswd
- Test2:hotp-d6:80d4d335194ae378fa901767596969bc213e6535
+ Token001:hotp-d6:80d4d335194ae378fa901767596969bc213e6535
 }}}
-在这里，Test2是用户名，你可以根据需要做修改
+在这里，Token001是用户名，你可以根据需要做修改。
 hotp-d6表示算法是htop,会生成6位的OTP
 后面部分是Token客户端的key(每个客户端都会有一个唯一的秘密的key,由于这个系统和客户端程序没有有效的交换key的办法，为了测试这里只能直接拷贝)
 
 在Token客户端生成两次OTP，用以下命令来同步客户端和OTP服务器
 {{{
-# resynctool -1 152979 -2 758041 -u Test2 -k 80d4d335194ae378fa901767596969bc213e6535 > /etc/otpstate/foo
+# resynctool -1 152979 -2 758041 -u Token001 -k 80d4d335194ae378fa901767596969bc213e6535 > /etc/otpstate/Token001
 }}}
 
 为了测试动态口令，首先启动OTP服务器
@@ -86,25 +86,24 @@ hotp-d6表示算法是htop,会生成6位的OTP
 
 在Token客户端生成新的动态口令，用以下命令来验证它是否有效
 {{{
-# otpauth -u Test2 -p 995880 -s /var/run/otpd/socket
+# otpauth -u Token001 -p 995880 -s /var/run/otpd/socket
   0 (ok)
 }}}
 * 由于在VMware上，你只能打开一个窗口，这里需要sshd或者telnet来访问CentOS。
 
-如果出现 0 (ok)的话，说明动态口令通过了验证。你也可以验证OTP服务器
-是非拒绝错误的，或者已经使用过的动态口令
+如果出现 0 (ok)的话，说明动态口令通过了验证。由于由于系统的bug,第一次验证的时候将出现
+验证失败的错误。第二次以后将没有问题。
 {{{
-# otpauth -u Test2 -p 995880 -s /var/run/otpd/socket 
-  otpauth: connect(/var/run/otpd/socket): Connection refused
-  -1 (invalid return code)
+# otpauth -u Token001 -p 005691 -s /var/run/otpd/socket
+3 (authentication error)
 }}}
 
 每个Token的状态以文件方式保存在服务器上。
 {{{
 # ls /etc/otpstate
-  foo  Test2  Test3  Test4
-# cat /etc/otpstate/Test3
-  5:Test3:0000000000000009:::0:4bea8f01:0:
+  Token001  Token002  Token003
+# cat /etc/otpstate/Token001
+  5:Token001:0000000000000009:::0:4bea8f01:0:
 }}}
 在/etc/otpstate文件夹里，状态文件以Token名作为文件名，在文件里面
 0000000000000009 表示现在Token的使用次数。
@@ -132,6 +131,16 @@ hotp-d6表示算法是htop,会生成6位的OTP
    #./configure --with-openssl=/usr/local/ssl
 }}}
 * 在这里假设/usr/local/ssl/lib/libcrypto*.so文件存在。请根据自身的环境设置路径
+
+ 问题：运行resynctool的时候，出现一下错误：
+{{{
+resynctool: error while loading shared libraries: libcrypto.so.0.9.8: cannot open shared object file: No such file or directory
+}}}
+ 解决办法：
+ 在运行之前,把相关路径追加到LD_LIBRARY_PATH环境变量里面
+{{{
+ LD_LIBRARY_PATH=/usr/local/ssl/lib;export LD_LIBRARY_PATH
+{{{
 
 
 
