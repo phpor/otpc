@@ -122,7 +122,7 @@ hotp-d6表示算法是htop,会生成6位的OTP
 {{{
    #C_INCLUDE_PATH=/usr/local/ssl/include;export C_INCLUDE_PATH
 }}}
- *在这里假设/usr/local/ssl/include/openssl/md4.h文件存在。请根据自身的环境设置路径
+* 在这里假设/usr/local/ssl/include/openssl/md4.h文件存在。请根据自身的环境设置路径
 
  问题：运行.configure的时候，出现一下错误：
   configure: error: OpenSSL(libcrypto) is required
@@ -131,7 +131,7 @@ hotp-d6表示算法是htop,会生成6位的OTP
 {{{
    #./configure --with-openssl=/usr/local/ssl
 }}}
- *在这里假设/usr/local/ssl/lib/libcrypto*.so文件存在。请根据自身的环境设置路径
+* 在这里假设/usr/local/ssl/lib/libcrypto*.so文件存在。请根据自身的环境设置路径
 
 
 
