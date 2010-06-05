@@ -60,7 +60,10 @@
 <pre>
 http://code.google.com/p/oathtoken/
 </pre>
-* 运行于其它手机上的，OATH对应的Token都可以。
+另一个用perl写的OATH对应的Token：
+<pre>
+http://cpansearch.perl.org/src/IWADE/Authen-HOTP-0.02/
+</pre>
 
 设置OTP服务器
 把Token客户端的key共享给OTP服务器
