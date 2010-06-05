@@ -110,10 +110,12 @@ hotp-d6表示算法是htop,会生成6位的OTP
 
 安装过程中的可能出现的问题
 问题：运行.configure的时候，出现一下错误：
+{{{
  checking openssl/md4.h usability... no
  checking openssl/md4.h presence... no
  checking for openssl/md4.h... no
  configure: error: unable to find openssl headers
+}}}
 原因：在/usr/local/include和/usr/include路径下找不到 openssl/md4.h头文件
 解决办法：
  在运行之前，将openssl/md4.h头文件所在路径追加到C_INCLUDE_PATH环境变量里面
@@ -140,7 +142,7 @@ resynctool: error while loading shared libraries: libcrypto.so.0.9.8: cannot ope
 在运行之前,把相关路径追加到LD_LIBRARY_PATH环境变量里面
 {{{
  LD_LIBRARY_PATH=/usr/local/ssl/lib;export LD_LIBRARY_PATH
-{{{
+}}}
 
 
 
