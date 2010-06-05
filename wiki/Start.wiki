@@ -27,13 +27,13 @@
 </pre>
 
 下载安装openssl到CentOS
-<pre>
+{{{
 # cd openssl-*.*.*
 # ./config shared
 # make
 # make test
 # make install
-</pre>
+}}}
 
 下载otpd-3.1.0.tar.gz到CentOS
 例: wget http://otpc.googlecode.com/files/otpd-3.1.0.tar.gz
