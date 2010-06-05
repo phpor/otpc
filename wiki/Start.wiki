@@ -109,39 +109,38 @@ hotp-d6表示算法是htop,会生成6位的OTP
 0000000000000009 表示现在Token的使用次数。
 
 安装过程中的可能出现的问题
- 问题：运行.configure的时候，出现一下错误：
-  checking openssl/md4.h usability... no
-  checking openssl/md4.h presence... no
-  checking for openssl/md4.h... no
-  configure: error: unable to find openssl headers
- 原因：在/usr/local/include和/usr/include路径下找不到 openssl/md4.h头文件
- 解决办法：
+问题：运行.configure的时候，出现一下错误：
+ checking openssl/md4.h usability... no
+ checking openssl/md4.h presence... no
+ checking for openssl/md4.h... no
+ configure: error: unable to find openssl headers
+原因：在/usr/local/include和/usr/include路径下找不到 openssl/md4.h头文件
+解决办法：
  在运行之前，将openssl/md4.h头文件所在路径追加到C_INCLUDE_PATH环境变量里面
  例：
 {{{
    #C_INCLUDE_PATH=/usr/local/ssl/include;export C_INCLUDE_PATH
 }}}
-* 在这里假设/usr/local/ssl/include/openssl/md4.h文件存在。请根据自身的环境设置路径
+在这里假设/usr/local/ssl/include/openssl/md4.h文件存在。请根据自身的环境设置路径
 
- 问题：运行.configure的时候，出现一下错误：
+问题：运行.configure的时候，出现一下错误：
   configure: error: OpenSSL(libcrypto) is required
- 解决办法：
+解决办法：
  运行.configure的时候用with-openssl指定libcrypto包的位置
 {{{
    #./configure --with-openssl=/usr/local/ssl
 }}}
-* 在这里假设/usr/local/ssl/lib/libcrypto*.so文件存在。请根据自身的环境设置路径
+在这里假设/usr/local/ssl/lib/libcrypto.so文件存在。请根据自身的环境设置路径
 
- 问题：运行resynctool的时候，出现一下错误：
+问题：运行resynctool的时候，出现一下错误：
 {{{
 resynctool: error while loading shared libraries: libcrypto.so.0.9.8: cannot open shared object file: No such file or directory
 }}}
- 解决办法：
- 在运行之前,把相关路径追加到LD_LIBRARY_PATH环境变量里面
+解决办法：
+在运行之前,把相关路径追加到LD_LIBRARY_PATH环境变量里面
 {{{
  LD_LIBRARY_PATH=/usr/local/ssl/lib;export LD_LIBRARY_PATH
 {{{
-
 
 
 
