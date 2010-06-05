@@ -4,12 +4,12 @@
 = Introduction =
 如果你已经有Linux的环境，请忽略下面有些步骤。在这里将介绍从Windows XP
 下开始利用免费软件从零开始建立测试环境的方法。
+环境：
 <pre>
-利用到的免费软件
  VWPlayer 3.0
  CentOS 5.0
  gcc
- openssl
+ OpenSSL
 </pre>
 
 = Details =
@@ -149,8 +149,13 @@ resynctool: error while loading shared libraries: libcrypto.so.0.9.8: cannot ope
  LD_LIBRARY_PATH=/usr/local/ssl/lib;export LD_LIBRARY_PATH
 }}}
 
-
-
+另一次成功运行了的环境：
+<pre>
+ Parallels Desktop 5 for Mac
+ CentOS 5.5
+ gcc 4.1.2
+ OpenSSL 0.9.8k
+</pre>
 
 
 
