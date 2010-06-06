@@ -1,14 +1,14 @@
-#summary One-sentence summary of this page.
-
 = Introduction =
 测试和Apache,FreeRADIUS系统一起使用动态口令系统
 
 = Details =
-
-OS：CentOS 5.5
+环境：
+CentOS 5.5
+OpenSSL 0.9.8e
+Apache 2
 
 ==第一步：安装FreeRADIUS==
-搜索可以利用的包：
+搜索可以利用FreeRADIUS的包：
 {{{
 # yum search freeradius2
 Loaded plugins: fastestmirror
@@ -28,11 +28,11 @@ freeradius2-python.i386 : Python support for freeradius
 freeradius2-unixODBC.i386 : Unix ODBC support for freeradius
 freeradius2-utils.i386 : FreeRADIUS utilities
 }}}
-安装你需要的包：
+安装你需要的FreeRADIUS包：
 {{{
 # yum install freeradius2 freeradius2-krb5 freeradius2-ldap freeradius2-utils
 }}}
-如果一下信息显示了，安装成功
+安装成功的时候的显示信息的一部分
 {{{
 Installed:
   freeradius2.i386 0:2.1.7-7.el5         freeradius2-krb5.i386 0:2.1.7-7.el5    
@@ -45,17 +45,17 @@ Complete!
 {{{
 radiusd -X
 }}}
-仔细阅读输出的信息，如果没有错误，可以发现很多有关RADIUS的设置信息。比如
+仔细阅读输出的信息，如果没有错误，可以发现很多有关RADIUS的信息。比如
 它生成用于EAP-TLS的RADIUS服务器电子证书 /etc/raddb/certs/server.pem 
 
-在/etc/raddb/users文件里插入一下一行来测试RADIUS
+在/etc/raddb/users文件里插入一行来测试RADIUS
   myradiususer Cleartext-Password := "password"
 
 重新在调试模式下启动RADIUS服务
 {{{
 radiusd -X
 }}}
-利用radtest向RADIUS服务器发出验证请求，如果验证成功将显示一下内容。
+利用radtest向RADIUS服务器发出验证请求，如果验证成功将显示下面内容。
 {{{
 # radtest myradiususer password 127.0.0.1 0 testing123
 Sending Access-Request of id 130 to 127.0.0.1 port 1812
@@ -80,9 +80,11 @@ rad_recv: Access-Accept packet from host 127.0.0.1 port 1812, id=130, length=20
 # apxs -i -a -c mod_auth_radius-2.0.c
 }}}
 注意：在mod_auth_radius-1.5.8.tar里面同时包含支持Apache不同版本的代码
+<pre>
   mod_auth_radius.c  用于 Apache 1.3.x
   mod_auth_radius-2.0.c  用于 Apache 2
-试设置而定，在执行apxs之前，有需要运行下一行以便把openssl的头文件包含进去
+</pre>
+试设置而定，在执行apxs之前，有需要运行下一行以便把openssl的头文件包含进去的时候
 {{{
 # C_INCLUDE_PATH=/usr/local/ssl/include;export C_INCLUDE_PATH
 }}}
