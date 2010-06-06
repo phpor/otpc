@@ -7,9 +7,9 @@
 
 OS：CentOS 5.5
 
-*第一步：安装FreeRADIUS*
+*第一步：安装FreeRADIUS* 
 搜索可以利用的包：
-{{{
+`
 # yum search freeradius2
 Loaded plugins: fastestmirror
 Loading mirror speeds from cached hostfile
@@ -27,7 +27,7 @@ freeradius2-postgresql.i386 : Postgresql support for freeradius
 freeradius2-python.i386 : Python support for freeradius
 freeradius2-unixODBC.i386 : Unix ODBC support for freeradius
 freeradius2-utils.i386 : FreeRADIUS utilities
-}}}
+`
 
 安装你需要的包：
 {{{
