@@ -49,4 +49,42 @@ radiusd -X
 它生成用于EAP-TLS的RADIUS服务器电子证书 /etc/raddb/certs/server.pem 
 
 在/etc/raddb/users文件里插入一下一行来测试RADIUS
-myradiususer Cleartext-Password := "password"
+  myradiususer Cleartext-Password := "password"
+
+重新在调试模式下启动RADIUS服务
+{{{
+radiusd -X
+}}}
+利用radtest向RADIUS服务器发出验证请求，如果验证成功将显示一下内容。
+{{{
+# radtest myradiususer password 127.0.0.1 0 testing123
+Sending Access-Request of id 130 to 127.0.0.1 port 1812
+	User-Name = "myradiususer"
+	User-Password = "password"
+	NAS-IP-Address = 127.0.0.1
+	NAS-Port = 0
+rad_recv: Access-Accept packet from host 127.0.0.1 port 1812, id=130, length=20
+}}}
+
+==安装Apache插件mod_auth_radius==
+这里利用apxs来给Apache安装扩展插件，首先安装apxs
+{{{
+# yum install httpd-devel.i386
+}}}
+
+下载mod_auth_radius的代码并安装
+{{{
+# wget ftp://ftp.freeradius.org/pub/radius/mod_auth_radius-1.5.8.tar
+# tar xvf mod_auth_radius-1.5.8.tar
+# cd mod_auth_radius-1.5.8
+# apxs -i -a -c mod_auth_radius-2.0.c
+}}}
+注意：在mod_auth_radius-1.5.8.tar里面同时包含支持Apache不同版本的代码
+  mod_auth_radius.c  用于 Apache 1.3.x
+  mod_auth_radius-2.0.c  用于 Apache 2
+试设置而定，在执行apxs之前，有需要运行下一行以便把openssl的头文件包含进去
+{{{
+# C_INCLUDE_PATH=/usr/local/ssl/include;export C_INCLUDE_PATH
+}}}
+
+==设置Apache以利用mod_auth_radius==
