@@ -90,3 +90,97 @@ rad_recv: Access-Accept packet from host 127.0.0.1 port 1812, id=130, length=20
 }}}
 
 ==设置Apache以利用mod_auth_radius==
+参照FreeRADIUS包里面的httpd.conf文件，修改Apache的httpd.conf文件
+在其它的LoadModule行后面追加倒入mod_auth_radius的指令 
+{{{
+#
+# Tell Apache to load the module.
+#
+LoadModule radius_auth_module /usr/lib/httpd/modules/mod_auth_radius-2.0.so
+}}}
+在其它 <IfModule> </IfModule>后面追加对mod_auth_radius的设置信息
+{{{
+# Add the general configuration of mod_auth_radius
+# either to the BOTTOM of httpd.conf
+# or into <VirtualHost> configuration before per-directory settings
+#
+<IfModule mod_auth_radius-2.0.c>
+
+#
+# AddRadiusAuth server[:port] <shared-secret> [ timeout [ : retries ]]
+#
+
+# Use localhost, the standard RADIUS port, secret 'testing123',
+# time out after 5 seconds, and retry 3 times.
+AddRadiusAuth localhost:1812 testing123 5:3
+
+#
+# AuthRadiusBindAddress <hostname/ip-address>
+#
+# Bind client (local) socket to this local IP address.
+# The server will then see RADIUS client requests will come from
+# the given IP address.
+#
+# By default, the module does not bind to any particular address,
+# and the operating system chooses the address to use.
+#
+
+#
+# AddRadiusCookieValid <minutes-for-which-cookie-is-valid>
+#
+# the special value of 0 (zero) means the cookie is valid forever.
+#
+AddRadiusCookieValid 5
+</IfModule>
+}}}
+在FreeRADIUS包里面的httpd.conf文件，使用到了两个指令
+# 指定Radius服务器的地址，端口，共享的密码，失效时间和重试的次数
+# AddRadiusAuth server[:port] <shared-secret> [ timeout [ : retries ]]
+AddRadiusAuth localhost:1812 testing123 5:3
+
+# 指定cookie的有效时间
+# AddRadiusCookieValid <minutes-for-which-cookie-is-valid> 
+AddRadiusCookieValid 5
+
+对要需要密码的文件夹进行访问控制的设置
+{{{
+#  A sample per-directory access-control configuration.
+
+<Location /secure/>
+# Tell the user the realm to which they're authenticating.
+# This string should be configured for your site.
+AuthName "Test radius atuthentication"
+
+# Apache 2.x specific setting:
+# Set RADIUS to be the provider for this basic authentication
+AuthBasicProvider radius
+
+# Make a local variation of AddRadiusCookieValid.  The server will choose
+# the MINIMUM of the two values.
+AuthRadiusCookieValid 5
+
+# Set the use of RADIUS authentication at this <Location>"
+AuthRadiusActive On
+
+# require that mod_auth_radius return a valid user, otherwise
+# access is denied.
+require valid-user
+</Location>
+}}}
+为了让文面显得简单，这里省掉了很多注释。如果省略掉所有的注释，实际上只是简单的加了加行指令，以要求访问 secure路径下的资源的时候要提供用户名和密码。
+{{{
+<Location /secure/>
+AuthName "Test radius atuthentication"
+AuthBasicProvider radius
+AuthRadiusCookieValid 5
+AuthRadiusActive On
+require valid-user
+</Location>
+}}}
+保存修改过的Apache的httpd.conf文件，重起Apache并启动Radius,这样当你从浏览器上访问
+/secure下面的文件的时候，一个要求用户名的对话框将被弹出，参照Radius的users文件的
+内容输入用户名和密码。
+ 比如在/etc/raddb/users文件里事先插入了下面一行
+   myradiususer Cleartext-Password := "password"
+ 在访问 /secure/`*`.html的时候，就输入用户名：myradiususer,密码：password
+
