@@ -66,7 +66,7 @@ Sending Access-Request of id 130 to 127.0.0.1 port 1812
 rad_recv: Access-Accept packet from host 127.0.0.1 port 1812, id=130, length=20
 }}}
 
-==安装Apache插件mod_auth_radius==
+==第二步：安装Apache插件mod_auth_radius==
 这里利用apxs来给Apache安装扩展插件，首先安装apxs
 {{{
 # yum install httpd-devel.i386
@@ -89,7 +89,7 @@ rad_recv: Access-Accept packet from host 127.0.0.1 port 1812, id=130, length=20
 # C_INCLUDE_PATH=/usr/local/ssl/include;export C_INCLUDE_PATH
 }}}
 <pre>
-==设置Apache以利用mod_auth_radius==
+==第三步：设置Apache以利用mod_auth_radius==
 参照FreeRADIUS包里面的httpd.conf文件，修改Apache的httpd.conf文件
 在其它的LoadModule行后面追加mod_auth_radius的指令
 </pre> 
@@ -186,3 +186,5 @@ require valid-user
  比如在/etc/raddb/users文件里事先插入了下面一行
    myradiususer Cleartext-Password := "password"
  在访问 /secure/`*`.html的时候，就输入用户名：myradiususer,密码：password
+
+==第四步：设置使用动态口令==
