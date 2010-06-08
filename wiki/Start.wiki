@@ -119,7 +119,6 @@ hotp-d6表示算法是htop,会生成6位的OTP
  checking for openssl/md4.h... no
  configure: error: unable to find openssl headers
 }}}
-原因：在/usr/local/include和/usr/include路径下找不到 openssl/md4.h头文件
 解决办法：
  在运行之前，将openssl/md4.h头文件所在路径追加到C_INCLUDE_PATH环境变量里面
  例：
