@@ -88,10 +88,11 @@ rad_recv: Access-Accept packet from host 127.0.0.1 port 1812, id=130, length=20
 {{{
 # C_INCLUDE_PATH=/usr/local/ssl/include;export C_INCLUDE_PATH
 }}}
-
+<pre>
 ==设置Apache以利用mod_auth_radius==
 参照FreeRADIUS包里面的httpd.conf文件，修改Apache的httpd.conf文件
-在其它的LoadModule行后面追加倒入mod_auth_radius的指令 
+在其它的LoadModule行后面追加mod_auth_radius的指令
+</pre> 
 {{{
 #
 # Tell Apache to load the module.
