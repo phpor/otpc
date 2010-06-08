@@ -133,14 +133,16 @@ AddRadiusAuth localhost:1812 testing123 5:3
 AddRadiusCookieValid 5
 </IfModule>
 }}}
-在FreeRADIUS包里面的httpd.conf文件，使用到了两个指令
-`#` 指定Radius服务器的地址，端口，共享的密码，失效时间和重试的次数
-`#` AddRadiusAuth server:port shared-secret timeout:retries
+省略掉注释,相当于在Apache的httpd.conf文件，使用到了两个指令
+{{{
+# 指定Radius服务器的地址，端口，共享的密码，失效时间和重试的次数
+# AddRadiusAuth server:port shared-secret timeout:retries
 AddRadiusAuth localhost:1812 testing123 5:3
 
 # 指定cookie的有效时间
-`#` AddRadiusCookieValid <minutes-for-which-cookie-is-valid> 
+# AddRadiusCookieValid <minutes-for-which-cookie-is-valid> 
 AddRadiusCookieValid 5
+}}}
 
 对要需要密码的文件夹进行访问控制的设置
 {{{
