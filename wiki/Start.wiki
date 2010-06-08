@@ -92,7 +92,7 @@ hotp-d6表示算法是htop,会生成6位的OTP
 # otpauth -u Token001 -p 995880 -s /var/run/otpd/socket
   0 (ok)
 }}}
-* 由于在VMware上，你只能打开一个窗口，这里需要sshd或者telnet来访问CentOS。
+`*` 这里可能需要sshd或者telnet来访问CentOS。
 
 如果出现 0 (ok)的话，说明动态口令通过了验证。由于由于系统的bug,第一次验证的时候将出现
 验证失败的错误。第二次以后将没有问题。
