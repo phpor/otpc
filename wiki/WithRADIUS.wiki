@@ -98,7 +98,7 @@ rad_recv: Access-Accept packet from host 127.0.0.1 port 1812, id=130, length=20
 #
 LoadModule radius_auth_module /usr/lib/httpd/modules/mod_auth_radius-2.0.so
 }}}
-在其它 <IfModule> </IfModule>后面追加对mod_auth_radius的设置信息
+在其它 `<`IfModule`>` `<`/IfModule`>`后面追加对mod_auth_radius的设置信息
 {{{
 # Add the general configuration of mod_auth_radius
 # either to the BOTTOM of httpd.conf
@@ -134,12 +134,12 @@ AddRadiusCookieValid 5
 </IfModule>
 }}}
 在FreeRADIUS包里面的httpd.conf文件，使用到了两个指令
-# 指定Radius服务器的地址，端口，共享的密码，失效时间和重试的次数
-# AddRadiusAuth server[:port] <shared-secret> [ timeout [ : retries ]]
+`#` 指定Radius服务器的地址，端口，共享的密码，失效时间和重试的次数
+`#` AddRadiusAuth server[:port] <shared-secret> [ timeout [ : retries ]]
 AddRadiusAuth localhost:1812 testing123 5:3
 
 # 指定cookie的有效时间
-# AddRadiusCookieValid <minutes-for-which-cookie-is-valid> 
+`#` AddRadiusCookieValid <minutes-for-which-cookie-is-valid> 
 AddRadiusCookieValid 5
 
 对要需要密码的文件夹进行访问控制的设置
@@ -183,4 +183,3 @@ require valid-user
  比如在/etc/raddb/users文件里事先插入了下面一行
    myradiususer Cleartext-Password := "password"
  在访问 /secure/`*`.html的时候，就输入用户名：myradiususer,密码：password
-
