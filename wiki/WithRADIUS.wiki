@@ -135,7 +135,7 @@ AddRadiusCookieValid 5
 }}}
 在FreeRADIUS包里面的httpd.conf文件，使用到了两个指令
 `#` 指定Radius服务器的地址，端口，共享的密码，失效时间和重试的次数
-`#` AddRadiusAuth server[:port] <shared-secret> [ timeout [ : retries ]]
+`#` AddRadiusAuth server[:port] `<`shared-secret`>` [ timeout [ : retries ]]
 AddRadiusAuth localhost:1812 testing123 5:3
 
 # 指定cookie的有效时间
