@@ -6,6 +6,8 @@
 CentOS 5.5
 OpenSSL 0.9.8e
 Apache 2
+概要：
+
 
 ==第一步：安装FreeRADIUS==
 搜索可以利用FreeRADIUS的包：
@@ -188,3 +190,53 @@ require valid-user
  在访问 /secure/`*`.html的时候，就输入用户名：myradiususer,密码：password
 
 ==第四步：设置使用动态口令==
+在FreeRADIUS的包里面，有一个叫rlm_otp的包，利用它可以实现FreeRADIUS和OTP服务器的连接。
+编辑/etc/raddb/sites-available/default文件，在authenticate节里面追加文字"otp"。
+例：
+{{{
+#  Please do not put "unlang" configurations into the "authenticate"
+#  section.  Put them in the "post-auth" section instead.  That's what
+#  the post-auth section is for.
+#
+authenticate {
+        #
+        #  Allow OTP authentication
+        otp
+}}}
+在同一文件的authorize节里面追加文字"otp"。
+{{{
+#  Make *sure* that 'preprocess' comes before any realm if you
+#  need to setup hints for the remote radius server
+authorize {
+        #
+        #  Allow OTP authorization
+        otp
+}}}
+在调试模式下启动FreeRADIUS(radiusd -X),如果rlm_otp包装载成功，将能看到下面的
+信息
+{{{
+ Module: Checking authenticate {...} for more modules to load
+ Module: Linked to module rlm_otp
+ Module: Instantiating otp
+  otp {
+	otpd_rp = "/var/run/otpd/socket"
+	challenge_prompt = "Challenge: %s  Response: "
+	challenge_length = 6
+	challenge_delay = 30
+	allow_sync = yes
+	allow_async = no
+	mschapv2_mppe = 2
+	mschapv2_mppe_bits = 2
+	mschap_mppe = 2
+	mschap_mppe_bits = 2
+  }
+}}}
+
+由于 /var/run/otpd/socket的权限问题，为了测试，这里改变该文件的访问权限
+{{{
+# chmod 777 /var/run/otpd/socket
+}}}
+
+再次访问 /secure/test.html的时候，就可以输入动态口令来进行登录了。
+
+
