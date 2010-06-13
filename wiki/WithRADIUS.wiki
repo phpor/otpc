@@ -195,7 +195,7 @@ require valid-user
 内容输入用户名和密码。
  比如在/etc/raddb/users文件里事先插入了下面一行
    myradiususer Cleartext-Password := "password"
- 在访问 /secure/`*`.html的时候，就输入用户名：myradiususer,密码：password
+这样在访问 /secure/testOTP.html的时候，就输入用户名：myradiususer,密码：password
 
 ==第四步：设置使用动态口令==
 在FreeRADIUS的包里面，有一个叫rlm_otp的包，利用它可以实现FreeRADIUS和OTP服务器的连接。
@@ -244,5 +244,5 @@ authorize {
 {{{
 # chmod 777 /var/run/otpd/socket
 }}}
-
-再次访问 /secure/test.html的时候，就可以输入动态口令来进行登录了。
+再次访问 /secure/testOTP.html的时候，就可以输入动态口令来进行登录了。
+注意：如果还没有建立起动态口令系统，请参照http://code.google.com/p/otpc/w/edit/Start
