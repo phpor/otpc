@@ -7,7 +7,13 @@ CentOS 5.5
 OpenSSL 0.9.8e
 Apache 2
 概要：
-
+在这里介绍一起使用Apache,FreeRADIUS,OTPD系统的方法。系统的流程如下述：
+1.在访问需要验证的Apache服务器的时候，用户输入用户名和在动态口令
+  令牌上生成的一次性密码
+2.Apache利用mod_auth_radius包，把用户名和密码传给FreeRADIUS
+3.FreeRADIUS利用rlm_otp包，把用户名和密码传给OTP服务器来验证
+4.OTP验证密码并把结果返回FreeRADIUS,FreeRADIUS把结果返回到Apache
+就这样实现在Apache服务器上的动态口令的利用
 
 ==第一步：安装FreeRADIUS==
 搜索可以利用FreeRADIUS的包：
@@ -238,5 +244,3 @@ authorize {
 }}}
 
 再次访问 /secure/test.html的时候，就可以输入动态口令来进行登录了。
-
-
