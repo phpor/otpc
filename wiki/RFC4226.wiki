@@ -24,9 +24,9 @@ Java卡的能力是一个重要的前提。
 5.2 算法的概述
    HOTP算法是基于客户端和服务器端都知道下面两个值:
     C:一个递增的值，就好比一个计数器一样
-     K:一个共享的秘匙
+    K:一个共享的秘匙
     每次进行密码验证的时候，双方都利用下面的算法来生成一个动态的值      
-       HOTP(K,C) = Truncate(HMAC-SHA-1(K,C))
+    HOTP(K,C) = Truncate(HMAC-SHA-1(K,C))
 </pre>  
   在这里HMAC-SHA-1指的是在<a href="http://www.ietf.org/rfc/rfc2104.txt">RFC2104</a>里定义的HASH算法。Truncate代表一个削减函数，以便把一个20位的HMAC-SHA-1算法的结果变成一个便于用户输入的值。（比如6位，8位）
 <pre>
@@ -42,15 +42,14 @@ Java卡的能力是一个重要的前提。
 
    削减函数Truncate执行第2步和第3步处理。
 
-
    DT运算的定义
 {{{
-     DT(String)  //String = String[0]...String[19],HMAC-SHA-1运算的结果
-     让 OffsetBits等于String[19]的低位4字节
-     Offset = StToNum(OffsetBits) // 0 <= OffSet <= 15
-     让 P = String[OffSet]...String[OffSet+3]
+    DT(String)  //String = String[0]...String[19],HMAC-SHA-1运算的结果
+    让 OffsetBits等于String[19]的低位4字节
+    Offset = StToNum(OffsetBits) // 0 <= OffSet <= 15
+    让 P = String[OffSet]...String[OffSet+3]
 }}}
-     返回P的最后31字节
+    返回P的最后31字节
      
    在这里不使用P的最高位字节的目的是为了避免singed,unsigned代来的计算问题。
    不同的处理器对singed,unsigned的计算方式不一样，不使用最高位字节可以避免
@@ -59,17 +58,15 @@ Java卡的能力是一个重要的前提。
 5.4.  计算6位HOTP的例子（Digit = 6）
    下面的例子介绍怎样从HMAC-SHA-1运算结果抽取动态的二进制代码。
 {{{
-        //String[19]的低位4字节
-        int offset   =  hmac_result[19] & 0xf ;
-        //不使用最高位，利用 &0x7f
-        int bin_code = (hmac_result[offset]  & 0x7f) << 24
-           | (hmac_result[offset+1] & 0xff) << 16
-           | (hmac_result[offset+2] & 0xff) <<  8
-           | (hmac_result[offset+3] & 0xff) ;
+    //String[19]的低位4字节
+    int offset   =  hmac_result[19] & 0xf ;
+    //不使用最高位，利用 &0x7f
+    int bin_code = (hmac_result[offset]  & 0x7f) << 24
+      | (hmac_result[offset+1] & 0xff) << 16
+      | (hmac_result[offset+2] & 0xff) <<  8
+      | (hmac_result[offset+3] & 0xff) ;
 }}}
-
    HMAC-SHA-1运算的例子
-
    -------------------------------------------------------------
    | Byte Number                                               |
    -------------------------------------------------------------
@@ -80,7 +77,6 @@ Java卡的能力是一个重要的前提。
    |1f|86|98|69|0e|02|ca|16|61|85|50|ef|7f|19|da|8e|94|5b|55|5a|
    -------------------------------***********----------------++|
 
-
    * 最后位的十六进制值是0x5a.
    * 低位四字节是0xa (offset 值).
    * offset 值为10 (0xa).
@@ -90,18 +86,16 @@ Java卡的能力是一个重要的前提。
 
    这样用二进制代码135872921除以 1,000,000 (10^6) 的余就是一个6位的HOTP值。
 
-
 7.2.  HOTP值的验证
 
    HOTP客户端(硬软件令牌)递增计数器的值，然后计算下一个HOTP值。如果认证服务器得到的值和
    客户端计算出来的值一样，那么HOTP值就被验证了。在这种情况下，服务器把计数器的值加1。
 
-   如果认证服务器得到的值和客户端计算出来的值不一样，服务器在开始寻求另一个途径之前启动再同步
-   的手续。(look-ahead window，即在接受一定范围内的超前的HOTP值，比如将计数器的值加1，
+   如果认证服务器得到的值和客户端计算出来的值不一样，服务器在开始寻求另一个途径之前启动再
+   同步的手续。(look-ahead window，即在接受一定范围内的超前的HOTP值，比如将计数器的值加1，
    加2，加3后的值)
 
    如果再同步失败，服务器然后要求协议的另一个认证途径发生，直到达到最大的允许探试次数。
-   
    如果达到了最大的允许探试次数，服务器应该锁定账户并启动一个通知用户的手续。
 
 7.4.  计数器的再同步
@@ -113,8 +107,8 @@ Java卡的能力是一个重要的前提。
    的说，就是服务器能计算接下来的s个服务器端HOTP值，然后用它们来检测接受接受到的HOTP客户端。
 
    在这种情况下，计数器的同步就仅仅是让服务器计算接下来的s个HOTP值并决定是否有一个一致的。
-   作为一个选择，系统可以要求用户送连续的几个HOTP值(比如2个, 3个)以用来再同步，因为猜测连续
-   的几个HOTP值比猜测单独的一个HOTP值要困难的多。
+   作为一个选择，系统可以要求用户送连续的几个HOTP值(比如2个, 3个)以用来再同步，因为猜测连
+   续的几个HOTP值比猜测单独的一个HOTP值要困难的多。
 
    变量s设置的上限确保服务器不会一直在检测HOTP值(导致denial-of-service攻击)并且限制攻击者
    可能的猜测范围。在确保不显著影响可用性的同时，s应当尽可能的小。
