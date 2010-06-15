@@ -116,7 +116,7 @@ Java卡的能力是一个重要的前提。
   为了减少任何机密信息泄露的风险，用于生成和验证OTP值的共有秘匙的操作必须被安全地进行。
   
   在验证系统里，我们能考虑两种不同的用于生成和保存(安全地)共有秘匙的途径。
-  * 定性生成：秘匙派生自一个主种子(master seed)以用于配置和验证，并能在被要求的时候
+  * 定性生成：秘匙派生自一个主属种子(master seed)以用于配置和验证，并能在被要求的时候
     随时生产
   * 随机生成：秘匙在配置时随机生成，秘匙必须马上被保存并管理在整个生命周期
    
@@ -124,7 +124,8 @@ Java卡的能力是一个重要的前提。
 
   定性生成：
   ------------------------
-
+  一个可行的策略就是从主属秘密(master secret)推导出共有秘匙。这个主属秘密将只被保存
+  在服务器。必须用一个具有耐侵犯性(tamper-resistant)设备来保存
    A possible strategy is to derive the shared secrets from a master
    secret.  The master secret will be stored at the server only.  A
    tamper-resistant device MUST be used to store the master key and
