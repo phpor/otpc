@@ -124,8 +124,10 @@ Java卡的能力是一个重要的前提。
 
   定性生成：
   ------------------------
-  一个可行的策略就是从主属秘密(master secret)推导出共有秘匙。这个主属秘密将只被保存
-  在服务器。必须用一个具有耐侵犯性(tamper-resistant)设备来保存
+  一个可行的策略就是从主位秘密(master secret)推导出共有秘匙。这个主位秘密将只被保存
+  在服务器。必须用一个具有耐侵犯性(tamper-resistant)设备来保存和从主位秘密及其它公开
+  信息来推导出共有秘匙。主要的优点将是避免在任何时候暴露共有秘匙，同时也避免对储存的
+  特殊需求，因为当在配置和验证处理里需要的时候，共有秘匙能随时生成。
    A possible strategy is to derive the shared secrets from a master
    secret.  The master secret will be stored at the server only.  A
    tamper-resistant device MUST be used to store the master key and
