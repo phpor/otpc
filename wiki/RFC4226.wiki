@@ -138,6 +138,19 @@ Java卡的能力是一个重要的前提。
        主位键，保存在Hardware Security Module (HSM),并放置在一个安全的地方，同时利用秘密
        共享方法，比如[Shamir]。这样，如果一个主位秘密被泄露了，就可以不用更换所有的设备而
        切换到另一个秘匙。
+
+   定性生成的缺点就是，主位秘密的暴露将可以让一个攻击者在一个确切的共有信息的基础上重建
+   任何共有秘匙。这将需要让所有的秘匙失效，或者在有多个主位键的情况下切换到一组新的秘匙。
+
+   另一方面，用于保存主位秘密和生成共有秘匙的设备必须是具有耐侵犯性。而且HSM将不会暴露到
+   验证系统的安全区域的外面，以便减少泄露的风险。
+
+   随机生成
+   -----------------
+   随机生成共有秘匙。我们推荐按照在[RFC4086]里的建议并选择一个好的，安全的随机数源以
+   用来生成这些秘匙。一个(真正的)随机生成器需要一个自然发生的随机数源。从实际来看，有
+   两个可以考虑的用来生成共有秘匙的办法：
+
    A possible strategy is to derive the shared secrets from a master
    secret.  The master secret will be stored at the server only.  A
    tamper-resistant device MUST be used to store the master key and
