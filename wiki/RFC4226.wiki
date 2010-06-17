@@ -128,6 +128,16 @@ Java卡的能力是一个重要的前提。
   在服务器。必须用一个具有耐侵犯性(tamper-resistant)设备来保存和从主位秘密及其它公开
   信息来推导出共有秘匙。主要的优点将是避免在任何时候暴露共有秘匙，同时也避免对储存的
   特殊需求，因为当在配置和验证处理里需要的时候，共有秘匙能随时生成。
+
+  我们区别两种不同的情形：
+     - 单独用一个主位键来推导共有秘匙；每个HOTP设备有一个不同的秘匙，K_i = SHA-1 (MK,i)
+       这里i代表一个用来识别HOTP设备的公开信息，比如一个序列号，一个令牌ID等。很明显，这
+       属于程序或服务的范畴－－不同的程序或服务的提供者将有不同的秘密和设置。
+     - 用几个主位键并且每个HOTP设备保存一组不同的推导出来的秘匙，{K_i,j = SHA-1(MK_i,j)}
+       这里j代表一个用来识别HOTP设备的公开信息。这个主意将是只在验证服务器上保存活跃的
+       主位键，保存在Hardware Security Module (HSM),并放置在一个安全的地方，同时利用秘密
+       共享方法，比如[Shamir]。这样，如果一个主位秘密被泄露了，就可以不用更换所有的设备而
+       切换到另一个秘匙。
    A possible strategy is to derive the shared secrets from a master
    secret.  The master secret will be stored at the server only.  A
    tamper-resistant device MUST be used to store the master key and
