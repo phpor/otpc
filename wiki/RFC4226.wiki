@@ -119,8 +119,6 @@ Java卡的能力是一个重要的前提。
   * 定性生成：秘匙派生自一个主属种子(master seed)以用于配置和验证，并能在被要求的时候
     随时生产
   * 随机生成：秘匙在配置时随机生成，秘匙必须马上被保存并管理在整个生命周期
-   
-  翻译中......
 
   定性生成：
   ------------------------
@@ -145,51 +143,13 @@ Java卡的能力是一个重要的前提。
    另一方面，用于保存主位秘密和生成共有秘匙的设备必须是具有耐侵犯性。而且HSM将不会暴露到
    验证系统的安全区域的外面，以便减少泄露的风险。
 
-   随机生成
+   随机生成：
    -----------------
    随机生成共有秘匙。我们推荐按照在[RFC4086]里的建议并选择一个好的，安全的随机数源以
    用来生成这些秘匙。一个(真正的)随机生成器需要一个自然发生的随机数源。从实际来看，有
    两个可以考虑的用来生成共有秘匙的办法：
 
-   翻译中...
-
-   Random Generation
-   -----------------
-
-   The shared secrets are randomly generated.  We RECOMMEND following
-   the recommendations in [RFC4086] and selecting a good and secure
-   random source for generating these secrets.  A (true) random
-   generator requires a naturally occurring source of randomness.
-   Practically, there are two possible avenues to consider for the
-   generation of the shared secrets:
-
-      * Hardware-based generators: they exploit the randomness that
-   occurs in physical phenomena.  A nice implementation can be based on
-   oscillators and built in such ways that active attacks are more
-   difficult to perform.
-
-      * Software-based generators: designing a good software random
-   generator is not an easy task.  A simple, but efficient,
-   implementation should be based on various sources and apply to the
-   sampled sequence a one-way function such as SHA-1.
-
-   We RECOMMEND selecting proven products, being hardware or software
-   generators, for the computation of shared secrets.
-
-   We also RECOMMEND storing the shared secrets securely, and more
-   specifically encrypting the shared secrets when stored using tamper-
-   resistant hardware encryption and exposing them only when required:
-   for example, the shared secret is decrypted when needed to verify an
-   HOTP value, and re-encrypted immediately to limit exposure in the RAM
-   for a short period of time.  The data store holding the shared
-   secrets MUST be in a secure area, to avoid as much as possible direct
-   attack on the validation system and secrets database.
-
-   Particularly, access to the shared secrets should be limited to
-   programs and processes required by the validation system only.  We
-   will not elaborate on the different security mechanisms to put in
-   place, but obviously, the protection of shared secrets is of the
-   uttermost importance.
-
-
+     * 基于硬件的生成器: 利用产生于物理现象的随机性。一个好的实装能是基于共振器。
+     * 基于软件的生成器: 设计一个好的软件随机生成器不是一件容易的事。一个简单的，但
+   有效的实装应该基于多种数据源并应用像SHA-1这样的但方向函数。
 </pre>
