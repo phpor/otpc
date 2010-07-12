@@ -157,11 +157,7 @@ resynctool: error while loading shared libraries: libcrypto.so.0.9.8: cannot ope
 
 ＊1 ： 使用最初版本的resynctool的时候，/etc/otpstate/Token名文件里面保存的次数为下一次的count数，而系统认为是当前count数，所以出现错误。
  例：
-<pre>
  5:MyToken:0000000000000003:::0:0:0:
-</pre>
 为了和系统正确同步，应该为
-<pre>
  5:MyToken:0000000000000002:::0:0:0:
-</pre>
  
