@@ -22,3 +22,10 @@ Add your content here.  Format your content with:
   --> 利用xpthread_create启动work_thread(work_thread.c)
   --> 调用verify(otp.c)
 }}}
+
+3.optauth.c
+  利用socket通信，向daemon(OTPD)发送验证请求并接受OTPD的回复。
+  验证请求用struct: otp_request_t
+  回复用struct: otp_reply_t
+
+  
