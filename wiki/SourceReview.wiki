@@ -18,9 +18,16 @@ Add your content here.  Format your content with:
 2.工作流程
 {{{
   main(main.c) 启动daemon 
-  --> 利用xpthread_create启动accept_thread(accept_thread.c) 
-  --> 利用xpthread_create启动work_thread(work_thread.c)
-  --> 调用verify(otp.c)
+    利用xpthread_create启动accept_thread(accept_thread.c)
+      {
+       accept socket;
+       利用xpthread_create启动work_thread(work_thread.c);
+       {
+         read socket;
+         调用OTP验证函数verify(otp.c);
+         write socket;
+       }
+      } 
 }}}
 
 3.optauth.c
