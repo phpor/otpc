@@ -35,4 +35,10 @@ Add your content here.  Format your content with:
   验证请求用struct: otp_request_t
   回复用struct: otp_reply_t
 
-  
+4.main.c
+ 系统初始化
+  config = config_init();
+  cardops_init();
+  sig_init();
+ 
+5.lock.c
