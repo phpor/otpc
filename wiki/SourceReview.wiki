@@ -42,3 +42,7 @@ Add your content here.  Format your content with:
   sig_init();
  
 5.lock.c
+  提供有关mutex初始化，操作的函数。
+
+6.state.c
+  提供读写user的state文件用函数。利用lock.c里的函数来lock,unlock state文件。
