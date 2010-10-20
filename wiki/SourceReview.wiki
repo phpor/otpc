@@ -45,6 +45,7 @@ Add your content here.  Format your content with:
   提供有关mutex初始化，操作的函数。
 
 6.state.c
+{{{
   提供读写user的state文件用函数。利用lock.c里的函数来lock,unlock state文件。
   
   注:每个Token的状态以文件方式保存在服务器上。 
@@ -53,4 +54,5 @@ Add your content here.  Format your content with:
   # cat /etc/otpstate/Token001   
     5:Token001:0000000000000009:::0:4bea8f01:0:
 
-  *需要改进Token状态的存取方式。
+  * 需要改进Token状态的存取方式。
+}}}
