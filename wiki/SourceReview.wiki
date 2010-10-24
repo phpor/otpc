@@ -42,11 +42,7 @@ Add your content here.  Format your content with:
   cardops_init();
   sig_init();
 }}}
-5.lock.c
-{{{
-  提供有关mutex初始化，操作的函数。
-}}}
-6.state.c
+5.state.c
 {{{
   提供读写user的state文件用函数。利用lock.c里的函数来lock,unlock state文件。
   
@@ -57,4 +53,15 @@ Add your content here.  Format your content with:
     5:Token001:0000000000000009:::0:4bea8f01:0:
 
   * 需要改进Token状态的存取方式。
+}}}
+6.lock.c
+{{{
+  用一个数组，里面包含64个链表来管理user的排他处理状态。利用username的hash值来决定
+每个user应该在哪一个链表里管理。
+  lock_get:从链表中取出指定用户的ulock_t
+  lock_put:追加ulock_t到链表　　
+}}}
+7.otp.c
+{{{
+  系统最重要的文件，提供verify函数来验证Token。
 }}}
