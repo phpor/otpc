@@ -65,3 +65,16 @@ Add your content here.  Format your content with:
 {{{
   系统最重要的文件，提供verify函数来验证Token。
 }}}
+8.xfunc.c
+{{{
+  一些系统函数的封装。例，
+/* guaranteed setsid */
+void
+_xsetsid(const char *caller)
+{
+  if (setsid() == (pid_t) -1) {
+    mlog(LOG_CRIT, "%s: setsid: %s", caller, strerror(errno));
+    exit(1);
+  }
+}
+}}}
