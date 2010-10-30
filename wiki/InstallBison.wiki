@@ -97,9 +97,9 @@ bison的详细内容请参照 http://www.gnu.org/software/bison/。
        fprintf (stderr, "%s\n", s);
      }
 }}}
-运行一下命令把rpcalc.y转化成解析文件
+运行以下命令把rpcalc.y转化成解析文件
 {{{
-bison rpcalc.y
+     # bison rpcalc.y
 }}}
 编译
 {{{
