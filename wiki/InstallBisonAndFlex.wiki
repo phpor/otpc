@@ -17,3 +17,8 @@ Add your content here.
 }}}
 
 bison的详细内容请参照 http://www.gnu.org/software/bison/
+
+flex的安装要简单得多
+{{{
+# yum install flex
+}}}
