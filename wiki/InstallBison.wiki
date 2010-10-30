@@ -17,7 +17,7 @@
 
 bison的详细内容请参照 http://www.gnu.org/software/bison/。
 为了测试Bison的运行，可以参照 http://www.gnu.org/software/bison/manual/bison.html#RPN-Calc 
-里面的例子 rpcalc.y。
+里面的例子 rpcalc.y(一个逆波兰式表达式计算器)来生成C语言代码，编译并执行。
 {{{
      /* Reverse polish notation calculator.  */
      
