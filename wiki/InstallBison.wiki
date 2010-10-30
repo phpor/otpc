@@ -14,7 +14,6 @@
 # make install
 }}}
 
-bison的详细内容请参照 http://www.gnu.org/software/bison/
+bison的详细内容请参照 http://www.gnu.org/software/bison/。
 为了测试Bison的运行，可以参照 http://www.gnu.org/software/bison/manual/bison.html#RPN-Calc 
 里面的例子 rpcalc.y。
-
