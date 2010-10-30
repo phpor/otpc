@@ -7,7 +7,11 @@ Add your content here.
 
 = Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+{{{
+ wget ftp://ftp.gnu.org/gnu/bison/bison-2.4.3.tar.gz
+ gzip -dc bison-2.4.3.tar.gz | tar xf -
+ cd bison-2.4.3
+bison-2.4.3#./configure
+bison-2.4.3#make
+bison-2.4.3#make install
+}}}
