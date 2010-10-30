@@ -1,0 +1,20 @@
+#summary One-sentence summary of this page.
+#labels Bison,parse
+
+= Introduction =
+由于系统利用Bison来生成访问缺省的系统配置文件"/etc/otpd.conf"的程序，当需要修改config.y文件，并重新生成y.tab.c y.tab.h y.tab.o文件的时候，需要在开发环境上安装Bison
+
+= Details =
+{{{
+# wget ftp://ftp.gnu.org/gnu/bison/bison-2.4.3.tar.gz
+# gzip -dc bison-2.4.3.tar.gz | tar xf -
+# cd bison-2.4.3
+# ./configure
+# make
+# make install
+}}}
+
+bison的详细内容请参照 http://www.gnu.org/software/bison/
+为了测试Bison的运行，可以参照 http://www.gnu.org/software/bison/manual/bison.html#RPN-Calc 
+里面的例子 rpcalc.y。
+
