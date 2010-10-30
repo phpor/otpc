@@ -17,3 +17,112 @@
 bison的详细内容请参照 http://www.gnu.org/software/bison/。
 为了测试Bison的运行，可以参照 http://www.gnu.org/software/bison/manual/bison.html#RPN-Calc 
 里面的例子 rpcalc.y。
+{{{
+     /* Reverse polish notation calculator.  */
+     
+     %{
+       #define YYSTYPE double
+       #include <math.h>
+       #include <stdio.h>
+       int yylex (void);
+       void yyerror (char const *);
+     %}
+     
+     %token NUM
+
+     %% /* Grammar rules and actions follow.  */
+
+     input:    /* empty */
+             | input line
+     ;
+     
+     line:     '\n'
+             | exp '\n'      { printf ("\t%.10g\n", $1); }
+     ;
+     
+     exp:      NUM           { $$ = $1;           }
+             | exp exp '+'   { $$ = $1 + $2;      }
+             | exp exp '-'   { $$ = $1 - $2;      }
+             | exp exp '*'   { $$ = $1 * $2;      }
+             | exp exp '/'   { $$ = $1 / $2;      }
+              /* Exponentiation */
+             | exp exp '^'   { $$ = pow ($1, $2); }
+              /* Unary minus    */
+             | exp 'n'       { $$ = -$1;          }
+     ;
+     %%
+
+     /* The lexical analyzer returns a double floating point
+        number on the stack and the token NUM, or the numeric code
+        of the character read if not a number.  It skips all blanks
+        and tabs, and returns 0 for end-of-input.  */
+     
+     #include <ctype.h>
+     
+     int
+     yylex (void)
+     {
+       int c;
+     
+       /* Skip white space.  */
+       while ((c = getchar ()) == ' ' || c == '\t')
+         ;
+       /* Process numbers.  */
+       if (c == '.' || isdigit (c))
+         {
+           ungetc (c, stdin);
+           scanf ("%lf", &yylval);
+           return NUM;
+         }
+       /* Return end-of-input.  */
+       if (c == EOF)
+         return 0;
+       /* Return a single char.  */
+       return c;
+     }
+
+     int
+     main (void)
+     {
+       return yyparse ();
+     }
+
+     #include <stdio.h>
+     
+     /* Called by yyparse on error.  */
+     void
+     yyerror (char const *s)
+     {
+       fprintf (stderr, "%s\n", s);
+     }
+}}}
+运行一下命令把rpcalc.y转化成解析文件
+{{{
+bison rpcalc.y
+}}}
+编译
+{{{
+     ## 显示当前文件
+     # ls
+     rpcalc.tab.c  rpcalc.y
+     
+     ## 编译Bison parser.
+     ##‘-lm’ tells compiler to search math library for pow.
+     # cc -lm -o rpcalc rpcalc.tab.c
+     
+     ## 编译后在此显示当前文件
+     # ls
+     rpcalc  rpcalc.tab.c  rpcalc.y
+}}}
+运行
+{{{
+     #./rpcalc
+      4 0 +                    //输入
+	4                      //运算结果
+      3 7 + 3 4 5 *+           //输入
+	-13                    //运算结果
+      3 7 + 3 4 5 * + - n      //输入
+	13                     //运算结果
+      5 6 / 4 n +              //输入
+	-3.166666667           //运算结果
+}}}
