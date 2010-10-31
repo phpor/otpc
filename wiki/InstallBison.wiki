@@ -6,13 +6,13 @@
 
 = Details =
 系统相关文件一览  
-  # config.y /* 给Bison的输入文件(Bison grammar file) */
-  # y.tab.c //Bison的输出文件,包含yyparse()函数
-  # y.tab.h        //Bison的输出文件,为了在scanner.c里的利用而单独生成的头文件
-  # config.l       //给flex的输入文件(a description of a scanner)
-  # scanner.c      //flex的输出文件(lexical scanner),包含yylex()函数,
-  # scanner.o      //编译后文件
-  # y.tab.o        //编译后文件
+  # config.y  /`*` 给Bison的输入文件(Bison grammar file) `*`/
+  # y.tab.c   /`*` Bison的输出文件,包含yyparse()函数 `*`/
+  # y.tab.h    /`*` Bison的输出文件,为了在scanner.c里的利用而单独生成的头文件 `*`/
+  # config.l   /`*` 给flex的输入文件(a description of a scanner) `*`/
+  # scanner.c    /`*` flex的输出文件(lexical scanner),包含yylex()函数, `*`/
+  # scanner.o    /`*` 编译后文件 `*`/
+  # y.tab.o      /`*` 编译后文件 `*`/
 
 下载并安装Bison
 {{{
