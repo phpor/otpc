@@ -29,6 +29,10 @@ Add your content here.  Format your content with:
     }
   } 
 }}}
+failover_thread.c
+{{{
+　从main.c启动的用来监视gsmd状态的Thread。
+}}}
 3.optauth.c
 {{{
   利用socket通信，向daemon(OTPD)发送验证请求并接受OTPD的回复。
