@@ -1,5 +1,5 @@
 #summary One-sentence summary of this page.
-#labels Bison,parse
+#labels Bison,parse,Phase-Implementation
 
 = Introduction =
 由于系统利用Bison来生成访问缺省的系统配置文件"/etc/otpd.conf"的程序，当需要修改config.y文件，并重新生成y.tab.c y.tab.h y.tab.o文件的时候，需要在开发环境上安装并利用Bison和flex。
