@@ -80,6 +80,7 @@ _xsetsid(const char *caller)
 }}}
 userops/file.c,ldap.c
 {{{
-动态口令的shared secret可以保存在/etc/otppasswd文件上，也可以保存在LDAP服务器上。通过/etc/otpd.conf配置文件可以更改设置。
+动态口令的shared secret可以保存在/etc/otppasswd文件上，也可以保存在LDAP服务器上。
+通过/etc/otpd.conf配置文件可以更改设置。
 file.c用于otppasswd文件的访问，ldap.c用于LDAP服务器的访问。
 }}}
