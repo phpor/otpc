@@ -35,4 +35,4 @@ ldap {
         # 中略
     } # ldap
 }}}
-有关OpenLDAP的简单的安装方法，可以参考http://my.oschina.net/sec/blog/9506。
+有关OpenLDAP的简单的安装方法，可以参考http://my.oschina.net/sec/blog/9506
