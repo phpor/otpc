@@ -20,7 +20,7 @@ ldap {
         # (which uses nsswitch to pick a source, but generally this is
         # /etc/services), falling back to a default of 389.
         host = localhost
-        port = 389
+        port = 389            
 
         # The user/pass to bind as.  The default is anonymous.
         binddn = dc=sichuan,dc=bazhong
@@ -31,6 +31,8 @@ ldap {
         basedn = dc=sichuan,dc=bazhong
         # The search filter. A single %u will be substituted with the username.
         # No default. (Eg. uid=%u)
-        #filter =
+        filter = uid=%u    
+        # 中略
+    } # ldap
 }}}
 有关OpenLDAP的简单的安装方法，可以参考http://my.oschina.net/sec/blog/9506。
