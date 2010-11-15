@@ -23,8 +23,14 @@ Add your content here.  Format your content with:
     accept socket;
     利用xpthread_create启动work_thread(work_thread.c);
     {
-     read socket;
-     调用OTP验证函数verify(otp.c);
+     read socket。
+     读取request.version(版本信息)。如果version = 2,读取信息至otp_request_t;如果version = 1,读取信息至otp_request_v1_t。      
+     进行一些类型检查。
+     调用在otp.c里定义的验证函数verify(config_t *config, const otp_request_t *request, otp_reply_t *reply);
+     {
+       根据配置文件otpd.conf的设置,调用file_get(userops/file.c)或者ldap_get(userops/ldap.c)
+来取得用户信息。
+     }
      write socket;
     }
   } 
