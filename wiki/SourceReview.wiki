@@ -59,7 +59,8 @@ main.c
 state.c
 {{{
   提供读写user的state文件用函数。利用lock.c里的函数来lock,unlock state文件。
-  
+  在/etc/otpd.conf文件里可以设置状态管理方式(local/gsmd)和状态文件路径(local方式时）  
+
   注:每个Token的状态以文件方式保存在服务器上。 
   # ls /etc/otpstate   
     Token001  Token002  Token003 
