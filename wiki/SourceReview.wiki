@@ -52,7 +52,7 @@ optauth.c
 main.c
 {{{
  系统初始化
-  config = config_init();
+  config = config_init();  // /etc/otpd.confファイルを読み込んでconfigファイルを初期化
   cardops_init();
   sig_init();
 }}}
@@ -98,4 +98,10 @@ userops/file.c,ldap.c
 动态口令的shared secret可以保存在/etc/otppasswd文件上，也可以保存在LDAP服务器上。
 通过/etc/otpd.conf配置文件可以更改设置。
 file.c用于otppasswd文件的访问，ldap.c用于LDAP服务器的访问。
+}}}
+config.y
+{{{
+  main.c里使用到的config_init()函数在这个文件。
+  config_init调用userotps_init/config.y,后者根据配置文件初始化userops来决定利用file.c
+或者ldap.c。
 }}}
