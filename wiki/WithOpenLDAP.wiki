@@ -36,3 +36,25 @@ ldap {
     } # ldap
 }}}
 有关OpenLDAP的简单的安装方法，可以参考http://my.oschina.net/sec/blog/9506
+
+向LDAP服务器里追加口令信息：
+sample.ldif
+{{{
+dn: cn=Token1219,dc=sichuan,dc=bazhong
+objectclass: person
+objectclass: otpToken
+sn: Token1219
+cn: Token1219
+otpVendor: hotp
+otpModel: d6
+otpKey1: 6a7af753cf5bfed9fa933169a19166fce8ea80ee
+}}}
+
+生成状态文件：
+resynctool -1 155833 -2 578300 -u Token1219 -k 6a7af753cf5bfed9fa933169a19166fce8ea80ee > /etc/otpstate/Token1219
+
+当运用otpauth来验证口令的时候，otpd就会从LDAP服务器取得shared secret来进行处理。
+otpauth -u Token1219 -p 703087 -s /var/run/otpd/socket
+
+
+
