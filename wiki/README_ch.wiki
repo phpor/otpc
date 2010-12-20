@@ -28,25 +28,8 @@ Add your content here.
 </pre>
   challenge和csd项决定一个完整的状态(state)。其它项用来防止密码猜测，用户同期和空状态初始化。
 
-    If the state file does not exist, the action taken depends on the token.
-
-    For TRI-D, the state will be initialized by the module itself.
-    DO NOT create any initial state data yourself.  (We call this
-    condition null state.)  For the first authentication, users must
-    give two consecutive passcodes.
-
-    For CRYPTOCard, the user must authenticate asynchronously to
-    initalize the state.  If your CRYPTOCard tokens aren't setup for
-    async auth, or if you disallow it in the server config, then you'll
-    (obviously) need to initialize the state manually when you issue
-    tokens.  Just create a state file with a blank challenge field.
-
-    To reset locked-out (in hardfail, or too far out of event sync for
-    rwindow mode to work) CRYPTOCard users manually, set the failcount
-    field to 0.  The challenge field may also need to be reset if the
-    user is too far out of sync.  Note that you must lock the state
-    file before changing it!  A utility will be provided for this in
-    the future.
-
-    The same notes (as for CRYPTOCard) apply for the generic hotp and
-    x9.9 token support.
+    如果状态文件不存在，处理以口令而定。
+    对于TRI-D,模块将初始化状态。没有必要自己生成初始数据。
+    对于CRYPTOCard,用户必须非同期的进行验证以初始化状态。如果CRYPTOCard口令没有安装为支持非同期验证，或者在服务器的定义文件里设置为不允许，就需要手动生成的初始化状态文件。让后把状态文件的challenge项设为空。
+    为了手动重设被锁定CryptoCard,把failcount设为0。如果用户偏离同期太远，也需要重设challenge项。
+    以上关于CRYPTOCard的说明也适用于hotp和x9.9口令。
