@@ -1,0 +1,52 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+9.  状态格式
+
+    每个用户有一个状态文件，文件名和用户名一样。缺省的状态文件路径/etc/otpstate。
+    格式：
+      ver:user:chal:csd:rd:failcount:authtime:mincardtime:
+    例子 (一些项可以为空):
+      5:bob:12345678:::0:0:0:
+
+    最后的":"为必须。
+
+          ver: 5
+         user: 用户名
+         chal: 前一个计数器的值 (challenge,用于基于事件的口令)
+          csd: 口令特有的值（card-specific data）
+           rd: rwindow (softfail) data
+    failcount: 失败次数，如果让一次验证成功为0,如果不成功为连续失败次数
+     authtime: 最后一次认证的时间 (成功或失败)
+  mincardtime: 最后一次成功认证的时间 
+
+  challenge和csd项决定一个完整的状态(state)。其它项用来防止密码猜测，用户同期和空状态初始化。
+
+    If the state file does not exist, the action taken depends on the token.
+
+    For TRI-D, the state will be initialized by the module itself.
+    DO NOT create any initial state data yourself.  (We call this
+    condition null state.)  For the first authentication, users must
+    give two consecutive passcodes.
+
+    For CRYPTOCard, the user must authenticate asynchronously to
+    initalize the state.  If your CRYPTOCard tokens aren't setup for
+    async auth, or if you disallow it in the server config, then you'll
+    (obviously) need to initialize the state manually when you issue
+    tokens.  Just create a state file with a blank challenge field.
+
+    To reset locked-out (in hardfail, or too far out of event sync for
+    rwindow mode to work) CRYPTOCard users manually, set the failcount
+    field to 0.  The challenge field may also need to be reset if the
+    user is too far out of sync.  Note that you must lock the state
+    file before changing it!  A utility will be provided for this in
+    the future.
+
+    The same notes (as for CRYPTOCard) apply for the generic hotp and
+    x9.9 token support.
