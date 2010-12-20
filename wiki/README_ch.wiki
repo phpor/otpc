@@ -31,8 +31,8 @@ Add your content here.
 
     如果状态文件不存在，处理以口令而定。
     对于TRI-D,模块将初始化状态。没有必要自己生成初始数据。
-    对于CRYPTOCard,用户必须非同期的进行验证以初始化状态。如果CRYPTOCard口令没有安装为支持非同期验证，或者在服务器的定义文件里设置为不允许，就需要手动生成的初始化状态文件。
-然后把状态文件的challenge项设为空。
-    为了手动重设被锁定CryptoCard，把failcount设为0。如果用户偏离同期太远，也需要重设challenge项。
+    对于CRYPTOCard,用户必须非同期的进行验证以初始化状态。
+    如果CRYPTOCard口令没有安装为支持非同期验证，或者在服务器的定义文件里设置为不允许，就需要手动生成的初始化状态文件。然后把状态文件的challenge项设为空。
+    为了手动重设被锁定'CryptoCard'，把failcount设为0。如果用户偏离同期太远，也需要重设challenge项。
     以上关于CRYPTOCard的说明也适用于hotp和x9.9口令。
 </pre>
