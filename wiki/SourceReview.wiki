@@ -53,7 +53,7 @@ main.c
 {{{
  系统初始化
   config = config_init();  // /etc/otpd.confファイルを読み込んでconfigファイルを初期化
-  cardops_init();          
+  cardops_init();    //初始化cardops全局变量         
   sig_init();        //signal的初始设定
   lock_init();       //初始化mutex
   daemonize();       //daemon初始化
