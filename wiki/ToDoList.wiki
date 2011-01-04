@@ -19,5 +19,5 @@
   * 提供在客户端和服务器端进行共享动态口令的shared secret的方法
 4. 在现有系统里面使用到了Helix加密方式，考虑到Helix已经不再被认为是一个安全，以后打算改成其它方式。
    关于Helix: http://en.wikipedia.org/wiki/Helix_%28cipher%29
-  
+5. 对基于时间的Token的支持
   
