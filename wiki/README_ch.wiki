@@ -38,4 +38,6 @@ Add your content here.
     以上关于CRYPTOCard的说明也适用于hotp和x9.9口令。
 
 注：authtime为Unix时间的16进制的值。
+   perl -e ' printf("%x\n",time()) '
+
 </pre>
